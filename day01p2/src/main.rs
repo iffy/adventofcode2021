@@ -4,18 +4,8 @@ use std::env;
 use std::collections::VecDeque;
 use std::vec::Vec;
 
-// fn sums(x: VecDeque<u32>) -> (u32, u32) {
-//     return (x[0] + x[1] + x[2], x[1] + x[2] + x[3])
-//     // I can't get this to work...
-//     // let v = Vec::from(x);
-//     // let a: u32 = (&v[1..3]).iter().sum();
-//     // let b: u32 = (&v[2..4]).iter().sum();
-//     // return (a, b);
-// }
-
 fn main() {
     let args: Vec<String> = env::args().collect();
-    // println!("{}", &args[1]);
     let file = File::open(&args[1]).unwrap();
     let mut slide: VecDeque<u32> = VecDeque::new();
     let mut increases: u32 = 0;
@@ -26,8 +16,8 @@ fn main() {
             slide.pop_front();
         }
         if slide.len() == 4 {
-            let asum = slide[0] + slide[1] + slide[2];
-            let bsum = slide[1] + slide[2] + slide[3];
+            let asum: u32 = slide.make_contiguous()[0..2].iter().sum();
+            let bsum: u32 = slide.make_contiguous()[1..3].iter().sum();
             if bsum > asum {
                 increases += 1;
             }
